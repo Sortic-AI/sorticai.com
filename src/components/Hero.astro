@@ -1,0 +1,227 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="hero" id="home">
+  <div class="hero__dot-grid dot-grid-bg" aria-hidden="true"></div>
+  <div class="hero__mesh" aria-hidden="true"></div>
+
+  <div class="hero__particles" aria-hidden="true">
+    <span class="particle particle--1"></span>
+    <span class="particle particle--2"></span>
+    <span class="particle particle--3"></span>
+    <span class="particle particle--4"></span>
+    <span class="particle particle--5"></span>
+    <span class="particle particle--6"></span>
+  </div>
+
+  <div class="hero__content container" data-reveal>
+    <div class="hero__badge">
+      <Icon name="lucide:shield-check" size={16} />
+      <span>AI Regulatory Assurance</span>
+    </div>
+
+    <h1 class="hero__headline">AI Regulatory Assurance for Law Firms and Corporate Boards</h1>
+
+    <p class="hero__lead">AI regulation is here. Most governance structures are not ready.</p>
+
+    <p class="hero__value">SorticAI gives decision-makers structured visibility in 48 hours.</p>
+
+    <div class="hero__ctas">
+      <a href="#contact" class="btn btn-primary">
+        Request a Briefing
+        <Icon name="lucide:arrow-right" size={18} />
+      </a>
+      <a href="#framework" class="btn btn-secondary">Explore Our Framework</a>
+    </div>
+
+    <p class="hero__tagline">AI adoption is inevitable. Oversight must be intentional.</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-logo);
+    overflow: hidden;
+    padding: var(--s-8) 0;
+  }
+
+  .hero__dot-grid {
+    z-index: 0;
+  }
+
+  .hero__mesh {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60%;
+    height: 80%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    opacity: 0.12;
+    clip-path: ellipse(50% 50% at 50% 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero__particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .particle--1 {
+    width: 6px;
+    height: 6px;
+    background: var(--color-secondary);
+    opacity: 0.3;
+    top: 15%;
+    left: 10%;
+  }
+
+  .particle--2 {
+    width: 4px;
+    height: 4px;
+    background: var(--color-primary);
+    opacity: 0.2;
+    top: 25%;
+    right: 20%;
+  }
+
+  .particle--3 {
+    width: 8px;
+    height: 8px;
+    background: var(--color-secondary);
+    opacity: 0.15;
+    bottom: 30%;
+    left: 20%;
+  }
+
+  .particle--4 {
+    width: 5px;
+    height: 5px;
+    background: var(--color-primary);
+    opacity: 0.25;
+    bottom: 20%;
+    right: 15%;
+  }
+
+  .particle--5 {
+    width: 4px;
+    height: 4px;
+    background: var(--color-secondary);
+    opacity: 0.2;
+    top: 50%;
+    left: 5%;
+  }
+
+  .particle--6 {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    opacity: 0.18;
+    top: 40%;
+    right: 8%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .particle--1 { animation: drift1 18s ease-in-out infinite alternate; }
+    .particle--2 { animation: drift2 22s ease-in-out infinite alternate; }
+    .particle--3 { animation: drift3 20s ease-in-out infinite alternate; }
+    .particle--4 { animation: drift4 25s ease-in-out infinite alternate; }
+    .particle--5 { animation: drift5 17s ease-in-out infinite alternate; }
+    .particle--6 { animation: drift6 23s ease-in-out infinite alternate; }
+  }
+
+  @keyframes drift1 {
+    to { transform: translate(40px, 30px); }
+  }
+  @keyframes drift2 {
+    to { transform: translate(-30px, 45px); }
+  }
+  @keyframes drift3 {
+    to { transform: translate(50px, -35px); }
+  }
+  @keyframes drift4 {
+    to { transform: translate(-45px, -25px); }
+  }
+  @keyframes drift5 {
+    to { transform: translate(35px, 50px); }
+  }
+  @keyframes drift6 {
+    to { transform: translate(-40px, 30px); }
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 6px 16px;
+    background: rgba(122, 191, 81, 0.1);
+    color: var(--color-secondary);
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--s-5);
+  }
+
+  .hero__headline {
+    margin-bottom: var(--s-4);
+  }
+
+  .hero__lead {
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-text-muted);
+    margin-bottom: var(--s-3);
+  }
+
+  .hero__value {
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--s-6);
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-6);
+  }
+
+  .hero__tagline {
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero__ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero__ctas .btn {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+---
+
+<section class="story section-padding" id="story">
+  <div class="story__watermark" aria-hidden="true">
+    <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10L15 55v90c0 50 37 95 85 105 48-10 85-55 85-105V55L100 10z" stroke="currentColor" stroke-width="4" fill="none"/>
+      <circle cx="100" cy="110" r="8" fill="currentColor"/>
+      <circle cx="70" cy="90" r="5" fill="currentColor"/>
+      <circle cx="130" cy="90" r="5" fill="currentColor"/>
+      <circle cx="80" cy="140" r="5" fill="currentColor"/>
+      <circle cx="120" cy="140" r="5" fill="currentColor"/>
+      <line x1="100" y1="110" x2="70" y2="90" stroke="currentColor" stroke-width="2"/>
+      <line x1="100" y1="110" x2="130" y2="90" stroke="currentColor" stroke-width="2"/>
+      <line x1="100" y1="110" x2="80" y2="140" stroke="currentColor" stroke-width="2"/>
+      <line x1="100" y1="110" x2="120" y2="140" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="story__content" data-reveal>
+      <h2>Our Story</h2>
+
+      <blockquote class="story__pullquote">SorticAI was founded at a turning point.</blockquote>
+
+      <p>As frontier AI systems began demonstrating high-level reasoning and autonomous capabilities, regulatory frameworks struggled to keep pace. The EU AI Act reshaped the compliance landscape. ISO 42001 formalized AI management systems. Data rights enforcement intensified.</p>
+
+      <p>We saw a widening governance gap.</p>
+
+      <p>Boards were adopting AI. Firms were deploying AI tools. But structured regulatory oversight was missing.</p>
+
+      <p>Rather than build another software platform, we built a disciplined AI Regulatory Assurance model — combining legal interpretation, internal AI models, standards mapping, and structured oversight into a repeatable framework.</p>
+
+      <p>Today, SorticAI operates at the intersection of AI capability and regulatory accountability — helping law firms and corporate boards move from uncertainty to structured governance.</p>
+
+      <p class="story__closing">In a landscape defined by acceleration, clarity becomes strategic power.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    position: relative;
+    background-color: var(--color-white);
+    overflow: hidden;
+  }
+
+  .story__watermark {
+    position: absolute;
+    top: var(--s-7);
+    right: -40px;
+    width: 320px;
+    height: 380px;
+    color: var(--color-primary);
+    opacity: 0.035;
+    pointer-events: none;
+  }
+
+  .story__content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .story__content h2 {
+    margin-bottom: var(--s-5);
+  }
+
+  .story__pullquote {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    color: var(--color-secondary);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: var(--s-5);
+    padding: 0;
+    border: none;
+  }
+
+  .story__content p {
+    line-height: 1.8;
+    font-size: 1.0625rem;
+  }
+
+  .story__closing {
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: 1.125rem !important;
+    margin-top: var(--s-6);
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .story__closing::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--color-secondary);
+    margin: var(--s-3) auto 0;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .story__watermark {
+      width: 200px;
+      height: 240px;
+      top: var(--s-4);
+      right: -20px;
+    }
+  }
+</style>

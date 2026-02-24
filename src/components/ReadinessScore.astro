@@ -1,0 +1,208 @@
+---
+---
+
+<section class="readiness">
+  <div class="container readiness__inner" data-reveal>
+    <div class="readiness__text">
+      <h2 class="readiness__heading">AI Governance Readiness Score&trade;</h2>
+      <p>Your organization receives a structured readiness signal reflecting current AI oversight maturity against regulatory and standards benchmarks.</p>
+      <p>The score creates measurable visibility — allowing boards and managing partners to track improvement over time.</p>
+      <a href="#contact" class="readiness__link">
+        Learn More <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="readiness__visual">
+      <div class="readiness__ring-wrapper">
+        <svg class="readiness__ring" viewBox="0 0 200 200" aria-label="Readiness score: 78 out of 100">
+          <circle
+            cx="100" cy="100" r="85"
+            class="readiness__ring-track"
+          />
+          <circle
+            cx="100" cy="100" r="85"
+            class="readiness__ring-progress"
+            id="score-ring"
+          />
+        </svg>
+        <div class="readiness__score" aria-hidden="true">78</div>
+      </div>
+
+      <div class="readiness__metrics">
+        <div class="readiness__metric">
+          <span class="readiness__metric-label">Risk Classification</span>
+          <div class="readiness__metric-bar">
+            <div class="readiness__metric-fill" style="width: 82%"></div>
+          </div>
+        </div>
+        <div class="readiness__metric">
+          <span class="readiness__metric-label">Documentation</span>
+          <div class="readiness__metric-bar">
+            <div class="readiness__metric-fill" style="width: 71%"></div>
+          </div>
+        </div>
+        <div class="readiness__metric">
+          <span class="readiness__metric-label">Vendor Exposure</span>
+          <div class="readiness__metric-bar">
+            <div class="readiness__metric-fill" style="width: 65%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .readiness {
+    background-color: var(--color-primary);
+    color: rgba(255, 255, 255, 0.85);
+    padding: var(--s-8) 0;
+    overflow: hidden;
+  }
+
+  .readiness__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+    align-items: center;
+  }
+
+  .readiness__heading {
+    color: var(--color-white);
+    margin-bottom: var(--s-4);
+  }
+
+  .readiness__text p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .readiness__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--color-secondary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-top: var(--s-3);
+    transition: var(--transition);
+  }
+
+  .readiness__link:hover {
+    gap: var(--s-3);
+  }
+
+  .readiness__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-5);
+  }
+
+  .readiness__ring-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+  }
+
+  .readiness__ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .readiness__ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 10;
+  }
+
+  .readiness__ring-progress {
+    fill: none;
+    stroke: var(--color-secondary);
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 534;
+    stroke-dashoffset: 534;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .readiness__ring-progress.animate {
+    stroke-dashoffset: 117;
+  }
+
+  .readiness__score {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .readiness__metrics {
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+
+  .readiness__metric-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+    margin-bottom: var(--s-1);
+  }
+
+  .readiness__metric-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .readiness__metric-fill {
+    height: 100%;
+    background: var(--color-secondary);
+    border-radius: 3px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 768px) {
+    .readiness__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .readiness__inner {
+      direction: ltr;
+    }
+
+    .readiness__visual {
+      order: -1;
+    }
+  }
+</style>
+
+<script>
+  const ring = document.getElementById('score-ring');
+  if (ring) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            ring.classList.add('animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(ring);
+  }
+</script>

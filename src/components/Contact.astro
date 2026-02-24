@@ -1,0 +1,191 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="contact section-padding" id="contact">
+  <div class="container">
+    <div class="contact__grid" data-reveal>
+      <div class="contact__info">
+        <h2>Request a Confidential AI Regulatory Briefing</h2>
+        <p class="contact__body">AI governance is no longer optional. Clarity is achievable.</p>
+        <p class="contact__body">To schedule your 48-Hour AI Compliance Health-Check or discuss ongoing Reg-Radar oversight, speak directly with a SorticAI advisor.</p>
+
+        <div class="contact__icons">
+          <div class="contact__icon-item">
+            <div class="contact__icon-circle">
+              <Icon name="lucide:mail" size={20} />
+            </div>
+            <span>Direct Communication</span>
+          </div>
+          <div class="contact__icon-item">
+            <div class="contact__icon-circle">
+              <Icon name="lucide:shield-check" size={20} />
+            </div>
+            <span>Confidential & Secure</span>
+          </div>
+          <div class="contact__icon-item">
+            <div class="contact__icon-circle">
+              <Icon name="lucide:clock" size={20} />
+            </div>
+            <span>48-Hour Turnaround</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact__form" action="#" method="POST">
+        <div class="contact__field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+
+        <div class="contact__field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+
+        <div class="contact__field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" autocomplete="organization" />
+        </div>
+
+        <div class="contact__field">
+          <label for="role">Your Role</label>
+          <input type="text" id="role" name="role" autocomplete="organization-title" />
+        </div>
+
+        <div class="contact__field">
+          <label for="message">How can we assist you?</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary contact__submit">
+          Request Briefing
+          <Icon name="lucide:arrow-right" size={18} />
+        </button>
+
+        <p class="contact__privacy">By submitting this form, you provide contact information used solely to communicate with you regarding SorticAI services. We handle all personal data in accordance with applicable data protection laws and our internal privacy policies. You may exercise your data rights at any time by contacting our privacy team.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background-color: var(--color-white);
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+    align-items: start;
+  }
+
+  .contact__info h2 {
+    margin-bottom: var(--s-4);
+  }
+
+  .contact__body {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .contact__icons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+  }
+
+  .contact__icon-item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .contact__icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(122, 191, 81, 0.1);
+    color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact__icon-item span {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  /* Form */
+  .contact__form {
+    background: var(--color-bg-light);
+    padding: var(--s-5);
+    border-radius: 12px;
+  }
+
+  .contact__field {
+    margin-bottom: var(--s-3);
+  }
+
+  .contact__field label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--s-1);
+  }
+
+  .contact__field input,
+  .contact__field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    transition: var(--transition);
+  }
+
+  .contact__field input:focus,
+  .contact__field textarea:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(122, 191, 81, 0.15);
+  }
+
+  .contact__field textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .contact__submit {
+    width: 100%;
+    margin-top: var(--s-2);
+  }
+
+  .contact__privacy {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-top: var(--s-3);
+  }
+
+  @media (min-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .contact__form {
+      order: -1;
+    }
+  }
+</style>

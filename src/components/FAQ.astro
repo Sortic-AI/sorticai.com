@@ -1,0 +1,173 @@
+---
+const faqs = [
+  {
+    q: 'What makes the 48-Hour Health-Check different from a traditional compliance audit?',
+    a: 'Traditional audits are retrospective and broad. Our Health-Check is rapid, targeted, and focused specifically on AI regulatory exposure and governance architecture. It produces an actionable readiness score and immediate prioritization roadmap.',
+  },
+  {
+    q: 'What is the AI Governance Readiness Score?',
+    a: 'The Readiness Score is a structured governance signal reflecting your current AI oversight maturity against regulatory and standards benchmarks. It provides measurable visibility and can be tracked over time.',
+  },
+  {
+    q: 'Does Reg-Radar replace internal counsel or compliance teams?',
+    a: 'No. Reg-Radar strengthens internal governance by providing structured regulatory interpretation, horizon scanning, and executive-level reporting. It enhances — not replaces — your internal teams.',
+  },
+  {
+    q: 'Why is ISO 42001 relevant now?',
+    a: 'ISO 42001 formalizes AI Management Systems. As adoption increases, it will become a reference standard for responsible AI governance. Early alignment reduces future transition friction and strengthens defensibility.',
+  },
+  {
+    q: 'How often should AI oversight occur?',
+    a: 'AI regulation and enforcement trends evolve continuously. Governance should not be a one-time event. Structured oversight at regular intervals reduces exposure and maintains board-level accountability.',
+  },
+  {
+    q: 'Is this software?',
+    a: 'No. SorticAI provides AI Regulatory Assurance — a structured oversight and governance framework supported by disciplined analysis and AI-curated regulatory intelligence.',
+  },
+];
+---
+
+<section class="faq section-padding" id="faq">
+  <div class="container">
+    <div class="faq__header" data-reveal>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq__list" data-reveal data-reveal-delay="100">
+      {faqs.map((faq, i) => (
+        <div class="faq__item">
+          <button
+            class="faq__question"
+            aria-expanded="false"
+            aria-controls={`faq-answer-${i}`}
+            id={`faq-btn-${i}`}
+          >
+            <span>{faq.q}</span>
+            <svg class="faq__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            class="faq__answer"
+            id={`faq-answer-${i}`}
+            role="region"
+            aria-labelledby={`faq-btn-${i}`}
+          >
+            <div class="faq__answer-inner">
+              <p>{faq.a}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background-color: var(--color-bg-light);
+  }
+
+  .faq__header {
+    text-align: center;
+    margin-bottom: var(--s-6);
+  }
+
+  .faq__list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .faq__item {
+    background: var(--color-white);
+    border-radius: 12px;
+    overflow: hidden;
+    border-left: 3px solid transparent;
+    transition: var(--transition);
+  }
+
+  .faq__item.open {
+    border-left-color: var(--color-secondary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .faq__question:hover {
+    color: var(--color-secondary);
+  }
+
+  .faq__chevron {
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--color-text-muted);
+  }
+
+  .faq__item.open .faq__chevron {
+    transform: rotate(180deg);
+    color: var(--color-secondary);
+  }
+
+  .faq__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq__answer-inner {
+    padding: 0 var(--s-4) var(--s-4);
+  }
+
+  .faq__answer-inner p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll('.faq__item');
+
+  items.forEach((item) => {
+    const btn = item.querySelector('.faq__question')!;
+    const answer = item.querySelector('.faq__answer') as HTMLElement;
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Close all items
+      items.forEach((other) => {
+        other.classList.remove('open');
+        const otherBtn = other.querySelector('.faq__question')!;
+        otherBtn.setAttribute('aria-expanded', 'false');
+        const otherAnswer = other.querySelector('.faq__answer') as HTMLElement;
+        otherAnswer.style.maxHeight = '0';
+      });
+
+      // Toggle current item
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+</script>

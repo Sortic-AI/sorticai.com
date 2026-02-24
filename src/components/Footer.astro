@@ -1,0 +1,117 @@
+---
+---
+
+<footer class="footer">
+  <div class="footer__inner container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo-wrapper">
+          <img src="/logo.png" alt="SorticAI" width="80" height="80" />
+        </div>
+        <p class="footer__tagline">AI Regulatory Assurance for Law Firms and Corporate Boards</p>
+      </div>
+
+      <div class="footer__links">
+        <h3 class="footer__heading">Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#framework">Framework</a></li>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__cta-col">
+        <h3 class="footer__heading">Get Started</h3>
+        <p>Schedule your 48-Hour AI Compliance Health-Check today.</p>
+        <a href="#contact" class="btn btn-primary footer__cta-btn">Request a Briefing</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; {new Date().getFullYear()} SorticAI. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-primary);
+    color: rgba(255, 255, 255, 0.8);
+    padding-top: var(--s-7);
+    padding-bottom: var(--s-5);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+    margin-bottom: var(--s-6);
+  }
+
+  .footer__logo-wrapper {
+    background: var(--color-bg-logo);
+    display: inline-block;
+    padding: var(--s-2);
+    border-radius: 12px;
+    margin-bottom: var(--s-3);
+  }
+
+  .footer__logo-wrapper img {
+    height: 80px;
+    width: auto;
+  }
+
+  .footer__tagline {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    max-width: 280px;
+  }
+
+  .footer__heading {
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--s-3);
+  }
+
+  .footer__links ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .footer__links a {
+    font-size: 0.9375rem;
+    transition: var(--transition);
+  }
+
+  .footer__links a:hover {
+    color: var(--color-secondary);
+  }
+
+  .footer__cta-col p {
+    font-size: 0.9375rem;
+    margin-bottom: var(--s-4);
+  }
+
+  .footer__cta-btn {
+    font-size: 0.875rem;
+    padding: 10px 20px;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: var(--s-4);
+    text-align: center;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+</style>

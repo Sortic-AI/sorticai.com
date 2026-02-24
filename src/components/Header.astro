@@ -1,0 +1,227 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<header class="header" id="site-header">
+  <div class="header__inner container">
+    <a href="#" class="header__logo" aria-label="SorticAI Home">
+      <img src="/logo.png" alt="SorticAI" width="48" height="48" />
+    </a>
+
+    <nav class="header__nav" id="main-nav" aria-label="Main navigation">
+      <ul class="header__links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <a href="#contact" class="btn btn-primary header__cta">Request a Briefing</a>
+
+    <button
+      class="header__toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle menu"
+    >
+      <Icon name="lucide:menu" class="icon-menu" size={24} />
+      <Icon name="lucide:x" class="icon-close" size={24} />
+    </button>
+  </div>
+
+  <div class="header__mobile" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile navigation">
+      <ul class="header__mobile-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary header__mobile-cta">Request a Briefing</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg-logo);
+    transition: var(--transition);
+  }
+
+  .header.scrolled {
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--color-bg-logo);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .header__logo img {
+    height: 48px;
+    width: auto;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__links {
+    display: flex;
+    gap: var(--s-5);
+  }
+
+  .header__links a {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: var(--transition);
+  }
+
+  .header__links a:hover {
+    color: var(--color-secondary);
+  }
+
+  .header__cta {
+    display: none;
+    padding: 10px 20px;
+    font-size: 0.875rem;
+  }
+
+  .header__toggle {
+    display: flex;
+    align-items: center;
+    color: var(--color-primary);
+  }
+
+  .header__toggle .icon-close {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] .icon-menu {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] .icon-close {
+    display: block;
+  }
+
+  /* Mobile menu */
+  .header__mobile {
+    display: none;
+    position: fixed;
+    top: 72px;
+    right: 0;
+    padding: var(--s-5);
+    background-color: var(--color-bg-logo);
+    border-left: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0 0 0 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 99;
+    min-width: 240px;
+  }
+
+  .header__mobile.open {
+    display: block;
+  }
+
+  .header__mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .header__mobile-links a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+    padding: var(--s-2) 0;
+    transition: var(--transition);
+  }
+
+  .header__mobile-links a:hover {
+    color: var(--color-secondary);
+  }
+
+  .header__mobile-cta {
+    width: 100%;
+  }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .header__nav {
+      display: block;
+    }
+
+    .header__cta {
+      display: inline-flex;
+    }
+
+    .header__toggle {
+      display: none;
+    }
+
+    .header__mobile {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+
+  // Scroll state
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  function openMenu() {
+    toggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    toggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Mobile menu toggle
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (expanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+</script>
