@@ -35,9 +35,9 @@ import { Icon } from 'astro-icon/components';
       <form class="contact__form" id="contact-form">
         <input type="hidden" name="apiKey" value="sf_g4afac550hb62a3883cf5069" />
         <input type="hidden" name="subject" value="New briefing request from SorticAI" />
-        <div class="contact__honeypot">
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
           <label for="honeypot">Leave this empty</label>
-          <input type="text" id="honeypot" name="honeypot" />
+          <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
         </div>
 
         <div class="contact__field">
@@ -198,7 +198,7 @@ import { Icon } from 'astro-icon/components';
     margin-top: var(--s-3);
   }
 
-  .contact__honeypot {
+  .contact__message[hidden] {
     display: none;
   }
 
