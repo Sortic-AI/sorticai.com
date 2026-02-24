@@ -32,7 +32,14 @@ import { Icon } from 'astro-icon/components';
         </div>
       </div>
 
-      <form class="contact__form" action="#" method="POST">
+      <form class="contact__form" id="contact-form">
+        <input type="hidden" name="apiKey" value="sf_g4afac550hb62a3883cf5069" />
+        <input type="hidden" name="subject" value="New briefing request from SorticAI" />
+        <div class="contact__honeypot">
+          <label for="honeypot">Leave this empty</label>
+          <input type="text" id="honeypot" name="honeypot" />
+        </div>
+
         <div class="contact__field">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required autocomplete="name" />
@@ -58,10 +65,24 @@ import { Icon } from 'astro-icon/components';
           <textarea id="message" name="message" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary contact__submit">
+        <button type="submit" class="btn btn-primary contact__submit" id="contact-submit">
           Request Briefing
           <Icon name="lucide:arrow-right" size={18} />
         </button>
+
+        <div class="contact__message contact__message--success" id="contact-success" hidden>
+          <div class="contact__message-icon">
+            <Icon name="lucide:check-circle" size={20} />
+          </div>
+          <p>Your request has been sent successfully. We'll be in touch within 48 hours.</p>
+        </div>
+
+        <div class="contact__message contact__message--error" id="contact-error" hidden>
+          <div class="contact__message-icon">
+            <Icon name="lucide:alert-circle" size={20} />
+          </div>
+          <p>Something went wrong. Please try again or email us directly.</p>
+        </div>
 
         <p class="contact__privacy">By submitting this form, you provide contact information used solely to communicate with you regarding SorticAI services. We handle all personal data in accordance with applicable data protection laws and our internal privacy policies. You may exercise your data rights at any time by contacting our privacy team.</p>
       </form>
@@ -177,6 +198,60 @@ import { Icon } from 'astro-icon/components';
     margin-top: var(--s-3);
   }
 
+  .contact__honeypot {
+    display: none;
+  }
+
+  .contact__message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    border-radius: 8px;
+    margin-top: var(--s-3);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .contact__message p {
+    margin: 0;
+  }
+
+  .contact__message-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact__message--success {
+    background: rgba(122, 191, 81, 0.1);
+    color: #2d6a0e;
+  }
+
+  .contact__message--success .contact__message-icon {
+    background: rgba(122, 191, 81, 0.2);
+    color: var(--color-secondary);
+  }
+
+  .contact__message--error {
+    background: rgba(220, 53, 53, 0.1);
+    color: #991b1b;
+  }
+
+  .contact__message--error .contact__message-icon {
+    background: rgba(220, 53, 53, 0.2);
+    color: #dc3535;
+  }
+
+  .contact__submit--loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
   @media (min-width: 768px) {
     .contact__grid {
       grid-template-columns: 1fr 1fr;
@@ -189,3 +264,55 @@ import { Icon } from 'astro-icon/components';
     }
   }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement;
+  const successMsg = document.getElementById('contact-success') as HTMLElement;
+  const errorMsg = document.getElementById('contact-error') as HTMLElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    // Honeypot check — silently pretend success
+    if (formData.get('honeypot')) {
+      form.querySelectorAll<HTMLElement>('.contact__field').forEach(f => f.hidden = true);
+      submitBtn.hidden = true;
+      successMsg.hidden = false;
+      return;
+    }
+
+    // Loading state
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.classList.add('contact__submit--loading');
+    submitBtn.textContent = 'Sending...';
+
+    errorMsg.hidden = true;
+
+    try {
+      const res = await fetch('https://api.staticforms.dev/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        form.querySelectorAll<HTMLElement>('.contact__field').forEach(f => f.hidden = true);
+        submitBtn.hidden = true;
+        form.reset();
+        successMsg.hidden = false;
+      } else {
+        errorMsg.hidden = false;
+        submitBtn.classList.remove('contact__submit--loading');
+        submitBtn.innerHTML = originalHTML;
+      }
+    } catch {
+      errorMsg.hidden = false;
+      submitBtn.classList.remove('contact__submit--loading');
+      submitBtn.innerHTML = originalHTML;
+    }
+  });
+</script>
