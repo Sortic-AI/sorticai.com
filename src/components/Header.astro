@@ -1,67 +1,67 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+const links = [
+  { label: 'Home', href: '#' },
+  { label: 'Framework', href: '#framework' },
+  { label: 'Our Story', href: '#story' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Contact', href: '#contact' },
+];
 ---
 
 <header class="header" id="site-header">
-  <div class="header__inner container">
+  <div class="header__bar container">
     <a href="#" class="header__logo" aria-label="SorticAI Home">
       <img src="/logo.png" alt="SorticAI" width="48" height="48" />
     </a>
 
-    <nav class="header__nav" id="main-nav" aria-label="Main navigation">
-      <ul class="header__links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#framework">Framework</a></li>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <nav class="header__desktop-nav" aria-label="Main navigation">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
-    <a href="#contact" class="btn btn-primary header__cta">Request a Briefing</a>
+    <a href="#contact" class="btn btn-primary header__desktop-cta">Request a Briefing</a>
 
-    <button
-      class="header__toggle"
-      id="menu-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Toggle menu"
-    >
-      <Icon name="lucide:menu" class="icon-menu" size={24} />
-      <Icon name="lucide:x" class="icon-close" size={24} />
+    <button class="header__burger" id="menu-toggle" aria-label="Toggle menu">
+      <Icon name="lucide:menu" size={24} />
     </button>
-  </div>
-
-  <div class="header__mobile" id="mobile-menu" aria-hidden="true">
-    <nav aria-label="Mobile navigation">
-      <ul class="header__mobile-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#framework">Framework</a></li>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="#contact" class="btn btn-primary header__mobile-cta">Request a Briefing</a>
-    </nav>
   </div>
 </header>
 
+<!-- Mobile menu: fully separate from header, fixed overlay -->
+<div class="mobile-overlay" id="mobile-overlay" aria-hidden="true">
+  <div class="mobile-overlay__backdrop" id="mobile-backdrop"></div>
+  <nav class="mobile-overlay__panel" aria-label="Mobile navigation">
+    <div class="mobile-overlay__header">
+      <img src="/logo.png" alt="SorticAI" width="40" height="40" />
+      <button class="mobile-overlay__close" id="menu-close" aria-label="Close menu">
+        <Icon name="lucide:x" size={24} />
+      </button>
+    </div>
+    <div class="mobile-overlay__links">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </div>
+    <a href="#contact" class="btn btn-primary mobile-overlay__cta">Request a Briefing</a>
+  </nav>
+</div>
+
 <style>
+  /* ---- Header bar ---- */
   .header {
     position: sticky;
     top: 0;
     z-index: 100;
     background-color: var(--color-bg-logo);
-    transition: var(--transition);
+    transition: box-shadow 0.3s, border-color 0.3s;
+    border-bottom: 1px solid transparent;
   }
 
   .header.scrolled {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom-color: var(--color-border);
     box-shadow: var(--shadow-sm);
-    background-color: var(--color-bg-logo);
   }
 
-  .header__inner {
+  .header__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,108 +73,138 @@ import { Icon } from 'astro-icon/components';
     width: auto;
   }
 
-  .header__nav {
+  .header__desktop-nav {
     display: none;
-  }
-
-  .header__links {
-    display: flex;
     gap: var(--s-5);
   }
 
-  .header__links a {
+  .header__desktop-nav a {
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--color-text);
-    transition: var(--transition);
+    transition: color 0.2s;
   }
 
-  .header__links a:hover {
+  .header__desktop-nav a:hover {
     color: var(--color-secondary);
   }
 
-  .header__cta {
+  .header__desktop-cta {
     display: none;
     padding: 10px 20px;
     font-size: 0.875rem;
   }
 
-  .header__toggle {
+  .header__burger {
     display: flex;
     align-items: center;
     color: var(--color-primary);
   }
 
-  .header__toggle .icon-close {
-    display: none;
+  @media (min-width: 768px) {
+    .header__desktop-nav {
+      display: flex;
+    }
+    .header__desktop-cta {
+      display: inline-flex;
+    }
+    .header__burger {
+      display: none;
+    }
   }
 
-  .header__toggle[aria-expanded='true'] .icon-menu {
-    display: none;
-  }
-
-  .header__toggle[aria-expanded='true'] .icon-close {
-    display: block;
-  }
-
-  /* Mobile menu */
-  .header__mobile {
-    display: none;
+  /* ---- Mobile overlay ---- */
+  .mobile-overlay {
     position: fixed;
-    top: 72px;
+    inset: 0;
+    z-index: 200;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-overlay.open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-overlay__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 26, 46, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .mobile-overlay.open .mobile-overlay__backdrop {
+    opacity: 1;
+  }
+
+  .mobile-overlay__panel {
+    position: absolute;
+    top: 0;
     right: 0;
-    padding: var(--s-5);
-    background-color: var(--color-bg-logo);
-    border-left: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    border-radius: 0 0 0 12px;
-    box-shadow: var(--shadow-lg);
-    z-index: 99;
-    min-width: 240px;
-  }
-
-  .header__mobile.open {
-    display: block;
-  }
-
-  .header__mobile-links {
+    width: 280px;
+    max-width: 85vw;
+    height: 100%;
+    background: var(--color-bg-logo);
+    padding: var(--s-4) var(--s-4) var(--s-5);
     display: flex;
     flex-direction: column;
-    gap: var(--s-3);
-    margin-bottom: var(--s-4);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
   }
 
-  .header__mobile-links a {
+  .mobile-overlay.open .mobile-overlay__panel {
+    transform: translateX(0);
+  }
+
+  .mobile-overlay__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--s-5);
+  }
+
+  .mobile-overlay__header img {
+    height: 40px;
+    width: auto;
+  }
+
+  .mobile-overlay__close {
+    display: flex;
+    align-items: center;
+    color: var(--color-primary);
+  }
+
+  .mobile-overlay__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    margin-bottom: var(--s-5);
+  }
+
+  .mobile-overlay__links a {
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-text);
-    padding: var(--s-2) 0;
-    transition: var(--transition);
+    padding: var(--s-2) var(--s-2);
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
   }
 
-  .header__mobile-links a:hover {
+  .mobile-overlay__links a:hover {
+    background: var(--color-bg-light);
     color: var(--color-secondary);
   }
 
-  .header__mobile-cta {
+  .mobile-overlay__cta {
     width: 100%;
+    margin-top: auto;
   }
 
-  /* Desktop */
   @media (min-width: 768px) {
-    .header__nav {
-      display: block;
-    }
-
-    .header__cta {
-      display: inline-flex;
-    }
-
-    .header__toggle {
-      display: none;
-    }
-
-    .header__mobile {
+    .mobile-overlay {
       display: none !important;
     }
   }
@@ -182,46 +212,37 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   const header = document.getElementById('site-header')!;
-  const toggle = document.getElementById('menu-toggle')!;
-  const mobileMenu = document.getElementById('mobile-menu')!;
+  const overlay = document.getElementById('mobile-overlay')!;
+  const btnOpen = document.getElementById('menu-toggle')!;
+  const btnClose = document.getElementById('menu-close')!;
+  const backdrop = document.getElementById('mobile-backdrop')!;
 
-  // Scroll state
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-
-  function openMenu() {
-    toggle.setAttribute('aria-expanded', 'true');
-    mobileMenu.setAttribute('aria-hidden', 'false');
-    mobileMenu.classList.add('open');
+  function open() {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = scrollbarWidth + 'px';
+    header.style.paddingRight = scrollbarWidth + 'px';
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
   }
 
-  function closeMenu() {
-    toggle.setAttribute('aria-expanded', 'false');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    mobileMenu.classList.remove('open');
+  function close() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+    header.style.paddingRight = '';
   }
 
-  // Mobile menu toggle
-  toggle.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    if (expanded) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+  btnOpen.addEventListener('click', open);
+  btnClose.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  overlay.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', close);
   });
 
-  // Close mobile menu on link click
-  mobileMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      closeMenu();
-    });
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
   });
 </script>
