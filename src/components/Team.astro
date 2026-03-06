@@ -1,0 +1,304 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const team = [
+  {
+    name: 'Lukas Lorenc',
+    role: 'CEO and Founder',
+    photo: '/team/lukas-lorenc.jpeg',
+    bio: 'Intellectual property attorney with two decades of experience in trademark law and complex commercial disputes, including landmark international cases.',
+    linkedin: 'https://www.linkedin.com/in/lukas-lorenc/',
+  },
+  {
+    name: 'Kristina Chytra',
+    role: 'IP and Unfair Competition',
+    photo: '/team/kristina-chytra.png',
+    bio: 'IP specialist with over a decade of experience in trademarks, patents, copyright, and unfair competition across the Czech and Slovak Republics.',
+    linkedin: 'https://www.linkedin.com/in/krist%C3%ADna-chytr%C3%A1-57a55068/',
+  },
+  {
+    name: 'Jiri Leisch',
+    role: 'International Trade',
+    photo: '/team/jiri-leisch.jpeg',
+    bio: 'Trademark and patent specialist with EU-level experience. Former head of trademark and patent department at a Prague-based attorney and patent office.',
+    linkedin: 'https://www.linkedin.com/in/ji%C5%99%C3%AD-leisch-963a20a2/',
+  },
+  {
+    name: 'David Velvethy',
+    role: 'CTO / Solution Architecture',
+    photo: '/team/david-velvethy.jpeg',
+    bio: 'Dynamic executive with 13+ years driving business strategy, FinTech adoption, and regulatory-compliant digital asset operations across Central and Eastern Europe.',
+    linkedin: 'https://www.linkedin.com/in/david-velvethy/',
+  },
+  {
+    name: 'Jan Mikes',
+    role: 'AI Engineer and AI Quality',
+    photo: '/team/jan-mikes.png',
+    bio: 'Software engineer with 20+ years of experience building reliable systems, focused on modern CI/CD, cloud-native architectures, and AI quality assurance.',
+    linkedin: 'https://www.linkedin.com/in/jan-mikes/',
+  },
+];
+
+const advisors = [
+  {
+    name: 'Tom Roberts',
+    role: 'ISO 17369 and Data Interoperability',
+    photo: '/team/tom-roberts.jpeg',
+    bio: 'Data evangelist contributing to global metadata and data-exchange initiatives, including SDMX (ISO 17369) and the Eurofiling Foundation (ISO 5116).',
+    linkedin: 'https://www.linkedin.com/in/tom-roberts-7a0b803/',
+  },
+  {
+    name: 'Chris Day',
+    role: 'ISO 20022 and Data Architect',
+    photo: '/team/chris-day.png',
+    bio: 'Data and standards architect with 20+ years in financial services. Former SWIFT architect and expert contributor to ISO/TC 68 on financial messaging standards.',
+    linkedin: 'https://www.linkedin.com/in/chrisdayabinitio/',
+  },
+];
+---
+
+<section class="team section-padding" id="team">
+  <div class="container">
+    <div class="team__header" data-reveal>
+      <p class="team__badge">The People Behind SorticAI</p>
+      <h2>Meet Our Team</h2>
+      <div class="team__divider"></div>
+      <p class="team__subtitle">A multidisciplinary team of legal, technology, and standards experts united by a shared mission — bringing structured governance to the age of AI.</p>
+    </div>
+
+    <div class="team__grid">
+      {team.map((member, i) => (
+        <div class="team-card" data-reveal data-reveal-delay={i * 100}>
+          <div class="team-card__photo-wrap">
+            <img src={member.photo} alt={member.name} width="160" height="160" loading="lazy" />
+          </div>
+          <h3 class="team-card__name">{member.name}</h3>
+          <p class="team-card__role">{member.role}</p>
+          <p class="team-card__bio">{member.bio}</p>
+          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="team-card__linkedin" aria-label={`${member.name} on LinkedIn`}>
+            <Icon name="lucide:linkedin" size={20} />
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="team__advisors-header" data-reveal>
+      <h2>Our Advisors</h2>
+      <div class="team__divider"></div>
+    </div>
+
+    <div class="team__advisors-grid">
+      {advisors.map((member, i) => (
+        <div class="team-card" data-reveal data-reveal-delay={i * 100}>
+          <div class="team-card__photo-wrap">
+            <img src={member.photo} alt={member.name} width="160" height="160" loading="lazy" />
+          </div>
+          <h3 class="team-card__name">{member.name}</h3>
+          <p class="team-card__role">{member.role}</p>
+          <p class="team-card__bio">{member.bio}</p>
+          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="team-card__linkedin" aria-label={`${member.name} on LinkedIn`}>
+            <Icon name="lucide:linkedin" size={20} />
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="team__cta" data-reveal>
+      <p>Ready to work with our team?</p>
+      <a href="#contact" class="btn btn-primary">Request a Briefing</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .team {
+    background-color: var(--color-bg-light);
+  }
+
+  /* ---- Section header ---- */
+  .team__header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--s-7);
+  }
+
+  .team__badge {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-secondary);
+    margin-bottom: var(--s-2);
+  }
+
+  .team__header h2 {
+    margin-bottom: var(--s-3);
+  }
+
+  .team__divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+    border-radius: 2px;
+    margin: 0 auto var(--s-4);
+  }
+
+  .team__subtitle {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  /* ---- Team grid ---- */
+  .team__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-5);
+    margin-bottom: var(--s-8);
+  }
+
+  @media (min-width: 640px) {
+    .team__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .team__grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .team__grid > :nth-child(1),
+    .team__grid > :nth-child(2),
+    .team__grid > :nth-child(3) {
+      grid-column: span 2;
+    }
+
+    /* Center the last row of 2 items across 6 columns */
+    .team__grid > :nth-child(4) {
+      grid-column: 2 / 4;
+    }
+
+    .team__grid > :nth-child(5) {
+      grid-column: 4 / 6;
+    }
+  }
+
+  /* ---- Advisors header ---- */
+  .team__advisors-header {
+    text-align: center;
+    margin-bottom: var(--s-6);
+  }
+
+  .team__advisors-header h2 {
+    margin-bottom: var(--s-3);
+  }
+
+  /* ---- Advisors grid ---- */
+  .team__advisors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-5);
+    max-width: 780px;
+    margin: 0 auto var(--s-7);
+  }
+
+  @media (min-width: 640px) {
+    .team__advisors-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ---- Team card ---- */
+  .team-card {
+    background: var(--color-white);
+    border-radius: 12px;
+    padding: var(--s-5) var(--s-4);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .team-card__photo-wrap {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto var(--s-4);
+    border: 3px solid var(--color-border);
+    transition: border-color 0.3s;
+  }
+
+  .team-card:hover .team-card__photo-wrap {
+    border-color: var(--color-secondary);
+  }
+
+  .team-card__photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .team-card__name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--s-1);
+  }
+
+  .team-card__role {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    margin-bottom: var(--s-3);
+  }
+
+  .team-card__bio {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--s-4);
+  }
+
+  .team-card__linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    padding: var(--s-1) var(--s-3);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .team-card__linkedin:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  /* ---- Bottom CTA ---- */
+  .team__cta {
+    text-align: center;
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .team__cta p {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--s-4);
+  }
+</style>
